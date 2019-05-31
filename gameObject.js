@@ -20,6 +20,10 @@ class gameObject {
             this.image.draw(); //if it has image, draw the image too
         }
     }
+    //set the color of a gameobject
+    setColor(color) {
+        this.color = color;
+    }
     //set the scale (dimensions) of a gameobject
     setScale(width, height) {
         this.width = width;
