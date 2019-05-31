@@ -5,6 +5,7 @@ class image {
         this.gameObject = gameObject; //the reference to the gameobject which contains the component image
         this.image = new Image(); //instantiating the javascript image
         this.image.src = 'Images/' + this.sprite; //defines the source image to be the sprite parameter
+        this.gameObject.self.appendChild(this.image);
     }
     draw() {
         //draw the image in the canvas with the position and size of the attached gameobject

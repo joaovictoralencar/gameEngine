@@ -9,6 +9,10 @@ var canvasWidth = 800;
 var canvasHeight = 600;
 var canvasColor = 'black'
 
+//mouse positions
+var mouseX;
+var mouseY;
+
 function mainLoop(timeStamp) {
     //if the fps is over the set value, just call the function again and don't do anything else
     if (timeStamp < lastFrameTimeMs + timeStep) {
@@ -39,6 +43,26 @@ window.onload = function () {
     start(); //runs the start function
     colorRect(0, 0, canvas.width, canvas.height, canvasColor); //draw the backgorund color
     requestAnimationFrame(mainLoop); //start the main loop
+
+    //detectmouse move
+    canvas.addEventListener('mousemove', function (evt) {
+        var mousePos = calculateMousePos(evt);
+        mouseX = mousePos.x;
+        mouseY = mousePos.y;
+    });
+}
+//calculte mouse position
+function calculateMousePos(evt) {
+    var rect = canvas.getBoundingClientRect(),
+        root = document.documentElement;
+
+    // account for the margins, canvas position on page, scroll amount, etc.
+    var mouseX = evt.clientX - rect.left - root.scrollLeft;
+    var mouseY = evt.clientY - rect.top - root.scrollTop;
+    return {
+        x: mouseX,
+        y: mouseY
+    };
 }
 //draw a collored rect on the canvas
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
@@ -53,7 +77,8 @@ function colorCircle(centerX, centerY, radius, fillColor) {
     canvasContext.fill();
 }
 //draw a collored text on the canvas
-function colorText(showWords, textX, textY, fillColor) {
+function colorText(showWords, textX, textY, size, fillColor) {
     canvasContext.fillStyle = fillColor;
+    canvasContext.font = size.toString() + "px Arial";
     canvasContext.fillText(showWords, textX, textY);
 }
